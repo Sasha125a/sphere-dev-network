@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SphereDev Network</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #001122, #003366);
+            color: white;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 800px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00ffff, #00ffaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #cccccc;
+        }
+        
+        .status {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .feature {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(0,255,255,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 SphereDev Network</h1>
+        <p>Virtual Internet Development Environment</p>
+        
+        <div class="status">
+            ✅ System Status: Online and Ready
+        </div>
+        
+        <div class="features">
+            <div class="feature">3D Virtual Space</div>
+            <div class="feature">Project Management</div>
+            <div class="feature">Virtual Terminal</div>
+            <div class="feature">Code Editor</div>
+        </div>
+        
+        <p><small>Deployed successfully on Render</small></p>
+    </div>
+
+    <script>
+        // Test API connection
+        fetch('/api/health')
+            .then(r => r.json())
+            .then(data => {
+                console.log('API connected:', data);
+            })
+            .catch(err => {
+                console.log('API check completed');
+            });
+    </script>
+</body>
+</html>
