@@ -10,9 +10,13 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const server = http.createServer(app);
+
+// Настройка CORS для продакшена
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: process.env.NODE_ENV === 'production' 
+            ? false // В продакшене используем тот же origin
+            : ["http://localhost:3000", "http://localhost:5173"],
         methods: ["GET", "POST"]
     }
 });
@@ -21,8 +25,12 @@ const io = new Server(server, {
 app.use(cors());
 app.use(express.json());
 
-// Serve static files from client
-app.use(express.static(path.join(__dirname, '../client/public')));
+// Serve static files from client build in production
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../client/dist')));
+} else {
+    app.use(express.static(path.join(__dirname, '../client/public')));
+}
 
 // Импорт утилит
 import virtualFS from './utils/virtualFS.js';
@@ -36,7 +44,8 @@ import virtualDatabase from './utils/virtualDatabase.js';
 app.get('/api', (req, res) => {
     res.json({ 
         message: 'SphereDev Network API',
-        version: '1.0.0'
+        version: '1.0.0',
+        environment: process.env.NODE_ENV || 'development'
     });
 });
 
@@ -136,9 +145,20 @@ io.on('connection', (socket) => {
     });
 });
 
-// Serve React app for all other routes
+// Serve React app for all other routes (SPA support)
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/public/index.html'));
+    if (process.env.NODE_ENV === 'production') {
+        res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    } else {
+        res.sendFile(path.join(__dirname, '../client/public/index.html'));
+    }
+});
+
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, () => {
+    console.log(`🚀 SphereDev Network Server running on port ${PORT}`);
+    console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`📊 Access the application at: ${process.env.NODE_ENV === 'production' ? 'https://your-app.onrender.com' : `http://localhost:${PORT}`}`);
 });
 
 const PORT = process.env.PORT || 5000;
