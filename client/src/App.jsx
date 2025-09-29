@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import HomeScreen from './screens/HomeScreen';
-import SphereScreen from './screens/SphereScreen';
-import ProjectsScreen from './screens/ProjectsScreen';
-import CreateProjectScreen from './screens/CreateProjectScreen';
-import TerminalScreen from './screens/TerminalScreen';
-import EditorScreen from './screens/EditorScreen';
+import HomeScreen from './screens/HomeScreen.jsx';
+import SphereScreen from './screens/SphereScreen.jsx';
+import ProjectsScreen from './screens/ProjectsScreen.jsx';
+import CreateProjectScreen from './screens/CreateProjectScreen.jsx';
+import TerminalScreen from './screens/TerminalScreen.jsx';
+import EditorScreen from './screens/EditorScreen.jsx';
 import './App.css';
 
 function App() {
@@ -12,7 +12,6 @@ function App() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // Симуляция загрузки приложения
         const timer = setTimeout(() => {
             setIsLoading(false);
         }, 1000);
