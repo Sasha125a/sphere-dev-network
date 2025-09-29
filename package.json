@@ -6,12 +6,11 @@
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node server/app.js",
-    "client": "cd client && npm run dev",
-    "build": "cd client && npm run build",
+    "client": "vite --config client/vite.config.js",
+    "build": "vite build --config client/vite.config.js",
     "start": "node server/app.js",
-    "render-build": "npm install && cd client && npm install && npm run build",
-    "render-start": "node server/app.js",
-    "install-deps": "npm install && cd client && npm install"
+    "render-build": "npm install && vite build --config client/vite.config.js",
+    "render-start": "node server/app.js"
   },
   "dependencies": {
     "express": "^4.18.2",
