@@ -1,0 +1,350 @@
+.editor-screen {
+    height: 100vh;
+    background: #001122;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.editor-header {
+    background: rgba(0, 33, 66, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    border-bottom: 2px solid #00ffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.editor-header h1 {
+    margin: 0;
+    color: #00ffff;
+    font-size: 1.8rem;
+}
+
+.editor-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.current-file {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+}
+
+.unsaved-indicator {
+    color: #ff6b6b;
+    font-size: 1.2rem;
+    animation: pulse 2s infinite;
+}
+
+.editor-container {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 250px 1fr 400px;
+    gap: 0;
+    overflow: hidden;
+}
+
+.file-explorer {
+    background: rgba(0, 20, 40, 0.8);
+    border-right: 1px solid #00ffff;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.file-explorer h3 {
+    margin: 0 0 1rem 0;
+    color: #00ffff;
+    border-bottom: 1px solid #00ffff;
+    padding-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.file-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.file-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(0, 255, 255, 0.3);
+}
+
+.file-item.active {
+    background: rgba(0, 255, 255, 0.2);
+    border-color: #00ffff;
+    color: #00ffff;
+}
+
+.file-icon {
+    font-size: 1rem;
+}
+
+.file-name {
+    flex: 1;
+}
+
+.explorer-actions {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.explorer-btn {
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.8rem;
+}
+
+.explorer-btn:hover {
+    background: rgba(0, 255, 255, 0.2);
+}
+
+.code-area {
+    background: #001122;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.code-toolbar {
+    background: rgba(0, 33, 66, 0.8);
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+    font-size: 0.8rem;
+    color: #cccccc;
+}
+
+.language-info {
+    font-weight: bold;
+    color: #00ffff;
+}
+
+.code-stats {
+    display: flex;
+    gap: 1rem;
+}
+
+.code-editor {
+    flex: 1;
+    background: #001122;
+    color: #00ff00;
+    border: none;
+    padding: 1rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    resize: none;
+    outline: none;
+    tab-size: 4;
+}
+
+.code-editor:focus {
+    background: #000811;
+}
+
+.preview-area {
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 1px solid #00ffff;
+    display: flex;
+    flex-direction: column;
+}
+
+.preview-header {
+    background: rgba(0, 33, 66, 0.8);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #00ffff;
+}
+
+.preview-header h3 {
+    margin: 0;
+    color: #00ffff;
+    font-size: 1rem;
+}
+
+.refresh-btn {
+    background: none;
+    border: none;
+    color: #00ffff;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.refresh-btn:hover {
+    background: rgba(0, 255, 255, 0.2);
+}
+
+.preview-container {
+    flex: 1;
+    padding: 1rem;
+    background: white;
+}
+
+.preview-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+    background: white;
+}
+
+.editor-status-bar {
+    background: rgba(0, 33, 66, 0.9);
+    border-top: 1px solid #00ffff;
+    padding: 0.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #cccccc;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Уведомление о сохранении */
+.save-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 255, 0, 0.9);
+    color: #001122;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    font-weight: bold;
+    z-index: 10000;
+    animation: slideIn 0.3s ease, slideOut 0.3s ease 1.7s;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+}
+
+/* Полосы прокрутки */
+.file-list::-webkit-scrollbar,
+.code-editor::-webkit-scrollbar {
+    width: 8px;
+}
+
+.file-list::-webkit-scrollbar-track,
+.code-editor::-webkit-scrollbar-track {
+    background: rgba(0, 255, 255, 0.1);
+}
+
+.file-list::-webkit-scrollbar-thumb,
+.code-editor::-webkit-scrollbar-thumb {
+    background: #00ffff;
+    border-radius: 4px;
+}
+
+.file-list::-webkit-scrollbar-thumb:hover,
+.code-editor::-webkit-scrollbar-thumb:hover {
+    background: #88ffff;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .editor-container {
+        grid-template-columns: 200px 1fr;
+    }
+    
+    .preview-area {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .editor-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+    }
+    
+    .editor-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .file-explorer {
+        border-right: none;
+        border-bottom: 1px solid #00ffff;
+        max-height: 200px;
+    }
+    
+    .file-list {
+        flex-direction: row;
+        overflow-x: auto;
+    }
+    
+    .file-item {
+        min-width: 120px;
+        text-align: center;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .explorer-actions {
+        flex-direction: row;
+        justify-content: center;
+    }
+    
+    .editor-status-bar {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+    }
+}

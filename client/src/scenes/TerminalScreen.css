@@ -1,0 +1,333 @@
+.terminal-screen {
+    height: 100vh;
+    background: #001122;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    display: flex;
+    flex-direction: column;
+}
+
+.terminal-header {
+    background: rgba(0, 33, 66, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    border-bottom: 2px solid #00ff00;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.terminal-header h1 {
+    margin: 0;
+    color: #00ff00;
+    font-size: 1.5rem;
+}
+
+.project-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+}
+
+.project-name {
+    background: rgba(0, 255, 0, 0.2);
+    color: #00ff00;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    border: 1px solid #00ff00;
+}
+
+.project-type {
+    color: #cccccc;
+}
+
+.no-project {
+    color: #ff6b6b;
+    font-style: italic;
+}
+
+.header-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.terminal-container {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 0;
+    overflow: hidden;
+}
+
+.quick-commands {
+    background: rgba(0, 20, 40, 0.8);
+    border-right: 1px solid #00ff00;
+    padding: 1.5rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.quick-commands h3 {
+    margin: 0 0 1rem 0;
+    color: #00ff00;
+    font-size: 1.1rem;
+    border-bottom: 1px solid #00ff00;
+    padding-bottom: 0.5rem;
+}
+
+.commands-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.cmd-button {
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid #00ff00;
+    border-radius: 6px;
+    padding: 0.75rem;
+    color: #00ff00;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    font-family: inherit;
+}
+
+.cmd-button:hover {
+    background: rgba(0, 255, 0, 0.2);
+    transform: translateX(5px);
+}
+
+.cmd-text {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+.cmd-desc {
+    display: block;
+    font-size: 0.8rem;
+    color: #88ff88;
+    opacity: 0.8;
+}
+
+.terminal-tips {
+    background: rgba(0, 255, 0, 0.05);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.terminal-tips h4 {
+    margin: 0 0 0.75rem 0;
+    color: #00ff00;
+    font-size: 0.9rem;
+}
+
+.terminal-tips ul {
+    margin: 0;
+    padding-left: 1rem;
+    color: #88ff88;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+.terminal-tips li {
+    margin-bottom: 0.25rem;
+}
+
+.terminal-wrapper {
+    display: flex;
+    flex-direction: column;
+    background: #000811;
+    position: relative;
+}
+
+.terminal-output {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    padding-bottom: 3rem;
+}
+
+.terminal-line {
+    margin-bottom: 0.5rem;
+    white-space: pre-wrap;
+}
+
+.terminal-line.input {
+    color: #00ff00;
+    font-weight: bold;
+}
+
+.terminal-line.output {
+    color: #cccccc;
+}
+
+.terminal-line.error {
+    color: #ff4444;
+}
+
+.terminal-cursor {
+    display: inline-block;
+    background: #00ff00;
+    width: 8px;
+    height: 1.2em;
+    animation: blink 1s infinite;
+    vertical-align: middle;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.terminal-input {
+    background: rgba(0, 255, 0, 0.1);
+    border-top: 1px solid #00ff00;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.prompt {
+    color: #00ff00;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.input-field {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.input-field::placeholder {
+    color: #008800;
+}
+
+.status-bar {
+    background: rgba(0, 33, 66, 0.95);
+    border-top: 1px solid #00ff00;
+    padding: 0.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #88ff88;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.status-indicator.connected {
+    background: #00ff00;
+    box-shadow: 0 0 10px #00ff00;
+    animation: pulse 2s infinite;
+}
+
+/* Полоса прокрутки */
+.terminal-output::-webkit-scrollbar {
+    width: 8px;
+}
+
+.terminal-output::-webkit-scrollbar-track {
+    background: rgba(0, 255, 0, 0.1);
+}
+
+.terminal-output::-webkit-scrollbar-thumb {
+    background: #00ff00;
+    border-radius: 4px;
+}
+
+.terminal-output::-webkit-scrollbar-thumb:hover {
+    background: #88ff88;
+}
+
+/* Анимации */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Эффект печати для нового вывода */
+.terminal-line.output {
+    animation: typewriter 0.1s ease-in;
+}
+
+@keyframes typewriter {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .terminal-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+    }
+    
+    .terminal-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-commands {
+        border-right: none;
+        border-bottom: 1px solid #00ff00;
+        max-height: 200px;
+    }
+    
+    .commands-grid {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+    }
+    
+    .cmd-button {
+        min-width: 120px;
+        text-align: center;
+    }
+    
+    .terminal-tips {
+        display: none;
+    }
+    
+    .status-bar {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+    }
+}
