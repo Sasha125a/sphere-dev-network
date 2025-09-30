@@ -24,7 +24,8 @@
         
         .container {
             text-align: center;
-            max-width: 800px;
+            max-width: 900px;
+            width: 100%;
         }
         
         h1 {
@@ -49,17 +50,112 @@
             margin: 2rem 0;
         }
         
-        .features {
+        .quick-actions {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
-            margin: 2rem 0;
+            margin: 3rem 0;
         }
         
-        .feature {
-            background: rgba(255,255,255,0.1);
-            padding: 1rem;
+        .action-btn {
+            background: rgba(0, 255, 255, 0.2);
+            border: 2px solid #00ffff;
+            color: white;
+            padding: 1.5rem 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .action-btn:hover {
+            background: rgba(0, 255, 255, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.3);
+        }
+        
+        .action-btn:active {
+            transform: translateY(-2px);
+        }
+        
+        .btn-icon {
+            font-size: 2rem;
+        }
+        
+        .btn-text {
+            font-weight: bold;
+        }
+        
+        .terminal {
+            background: #000811;
+            border: 1px solid #00ff00;
             border-radius: 8px;
+            padding: 1rem;
+            margin: 2rem 0;
+            text-align: left;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .terminal-line {
+            margin-bottom: 0.5rem;
+        }
+        
+        .terminal-input {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .prompt {
+            color: #00ff00;
+            font-weight: bold;
+        }
+        
+        .cmd-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .project-form {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #00ffff;
+            border-radius: 6px;
+            color: white;
+            margin-top: 0.5rem;
+        }
+        
+        .current-view {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
             border: 1px solid rgba(0,255,255,0.3);
         }
     </style>
@@ -70,29 +166,243 @@
         <p>Virtual Internet Development Environment</p>
         
         <div class="status">
-            ✅ System Status: Online and Ready
+            ✅ System Status: Online and Ready | API: <span id="apiStatus">Checking...</span>
+        </div>
+
+        <div class="current-view">
+            <h2 id="currentView">Welcome to SphereDev</h2>
+            <p id="viewDescription">Select an action to get started</p>
+            
+            <!-- Terminal Output -->
+            <div class="terminal" id="terminalOutput" style="display: none;">
+                <div class="terminal-line">🌐 Welcome to SphereDev Terminal</div>
+                <div class="terminal-line">Type "help" for available commands</div>
+                <div id="terminalContent"></div>
+                <div class="terminal-input" id="terminalInput" style="display: none;">
+                    <span class="prompt">$</span>
+                    <input type="text" class="cmd-input" id="cmdInput" placeholder="Type a command...">
+                </div>
+            </div>
+            
+            <!-- Project Form -->
+            <div id="projectForm" style="display: none;">
+                <div class="project-form">
+                    <h3>Create New Project</h3>
+                    <div class="form-group">
+                        <label>Project Name:</label>
+                        <input type="text" class="form-input" id="projectName" placeholder="my-awesome-project">
+                    </div>
+                    <div class="form-group">
+                        <label>Project Type:</label>
+                        <select class="form-input" id="projectType">
+                            <option value="website">Website</option>
+                            <option value="webapp">Web Application</option>
+                            <option value="api">API Server</option>
+                        </select>
+                    </div>
+                    <button class="action-btn" onclick="createProject()" style="width: 100%; margin-top: 1rem;">
+                        <span class="btn-text">🚀 Create Project</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Projects List -->
+            <div id="projectsList" style="display: none;">
+                <h3>Your Projects</h3>
+                <div id="projectsContainer"></div>
+            </div>
         </div>
         
-        <div class="features">
-            <div class="feature">3D Virtual Space</div>
-            <div class="feature">Project Management</div>
-            <div class="feature">Virtual Terminal</div>
-            <div class="feature">Code Editor</div>
+        <div class="quick-actions">
+            <button class="action-btn" onclick="showView('home')">
+                <span class="btn-icon">🏠</span>
+                <span class="btn-text">Home</span>
+            </button>
+            
+            <button class="action-btn" onclick="showView('sphere')">
+                <span class="btn-icon">🌐</span>
+                <span class="btn-text">3D Sphere</span>
+            </button>
+            
+            <button class="action-btn" onclick="showView('projects')">
+                <span class="btn-icon">📁</span>
+                <span class="btn-text">Projects</span>
+            </button>
+            
+            <button class="action-btn" onclick="showView('create-project')">
+                <span class="btn-icon">🚀</span>
+                <span class="btn-text">New Project</span>
+            </button>
+            
+            <button class="action-btn" onclick="showView('terminal')">
+                <span class="btn-icon">⌨️</span>
+                <span class="btn-text">Terminal</span>
+            </button>
+            
+            <button class="action-btn" onclick="showView('editor')">
+                <span class="btn-icon">💻</span>
+                <span class="btn-text">Editor</span>
+            </button>
         </div>
-        
-        <p><small>Deployed successfully on Render</small></p>
     </div>
 
     <script>
-        // Test API connection
-        fetch('/api/health')
-            .then(r => r.json())
-            .then(data => {
-                console.log('API connected:', data);
-            })
-            .catch(err => {
-                console.log('API check completed');
-            });
+        // API Health Check
+        async function checkAPI() {
+            try {
+                const response = await fetch('/api/health');
+                const data = await response.json();
+                document.getElementById('apiStatus').textContent = 'Connected ✅';
+                document.getElementById('apiStatus').style.color = '#00ff00';
+            } catch (error) {
+                document.getElementById('apiStatus').textContent = 'Disconnected ❌';
+                document.getElementById('apiStatus').style.color = '#ff4444';
+            }
+        }
+
+        // View Management
+        function showView(viewName) {
+            // Hide all views
+            document.getElementById('terminalOutput').style.display = 'none';
+            document.getElementById('terminalInput').style.display = 'none';
+            document.getElementById('projectForm').style.display = 'none';
+            document.getElementById('projectsList').style.display = 'none';
+            
+            // Show selected view
+            switch(viewName) {
+                case 'home':
+                    document.getElementById('currentView').textContent = 'Welcome to SphereDev';
+                    document.getElementById('viewDescription').textContent = 'Select an action to get started';
+                    break;
+                    
+                case 'sphere':
+                    document.getElementById('currentView').textContent = '3D Project Sphere';
+                    document.getElementById('viewDescription').textContent = 'Interactive 3D visualization of your projects';
+                    break;
+                    
+                case 'projects':
+                    document.getElementById('currentView').textContent = 'Project Management';
+                    document.getElementById('viewDescription').textContent = 'Manage your development projects';
+                    document.getElementById('projectsList').style.display = 'block';
+                    loadProjects();
+                    break;
+                    
+                case 'create-project':
+                    document.getElementById('currentView').textContent = 'Create New Project';
+                    document.getElementById('viewDescription').textContent = 'Start a new development project';
+                    document.getElementById('projectForm').style.display = 'block';
+                    break;
+                    
+                case 'terminal':
+                    document.getElementById('currentView').textContent = 'Virtual Terminal';
+                    document.getElementById('viewDescription').textContent = 'Command-line interface for your projects';
+                    document.getElementById('terminalOutput').style.display = 'block';
+                    document.getElementById('terminalInput').style.display = 'block';
+                    document.getElementById('cmdInput').focus();
+                    break;
+                    
+                case 'editor':
+                    document.getElementById('currentView').textContent = 'Code Editor';
+                    document.getElementById('viewDescription').textContent = 'Real-time code editing environment';
+                    break;
+            }
+        }
+
+        // Terminal functionality
+        document.getElementById('cmdInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const command = this.value.trim();
+                if (command) {
+                    executeCommand(command);
+                    this.value = '';
+                }
+            }
+        });
+
+        async function executeCommand(command) {
+            const terminalContent = document.getElementById('terminalContent');
+            terminalContent.innerHTML += `<div class="terminal-line">$ ${command}</div>`;
+            
+            try {
+                const response = await fetch('/api/terminal/execute', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ command: command })
+                });
+                
+                const data = await response.json();
+                terminalContent.innerHTML += `<div class="terminal-line">${data.output.replace(/\n/g, '<br>')}</div>`;
+            } catch (error) {
+                terminalContent.innerHTML += `<div class="terminal-line" style="color: #ff4444;">Error: ${error.message}</div>`;
+            }
+            
+            // Scroll to bottom
+            terminalContent.scrollTop = terminalContent.scrollHeight;
+        }
+
+        // Project management
+        async function createProject() {
+            const name = document.getElementById('projectName').value;
+            const type = document.getElementById('projectType').value;
+            
+            if (!name) {
+                alert('Please enter a project name');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/projects', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        type: type,
+                        description: 'A new project created in SphereDev Network'
+                    })
+                });
+                
+                const project = await response.json();
+                alert(`Project "${project.name}" created successfully!`);
+                document.getElementById('projectName').value = '';
+                showView('projects');
+            } catch (error) {
+                alert('Error creating project: ' + error.message);
+            }
+        }
+
+        async function loadProjects() {
+            try {
+                const response = await fetch('/api/projects');
+                const projects = await response.json();
+                
+                const container = document.getElementById('projectsContainer');
+                container.innerHTML = '';
+                
+                projects.forEach(project => {
+                    const projectEl = document.createElement('div');
+                    projectEl.className = 'feature';
+                    projectEl.style.margin = '0.5rem 0';
+                    projectEl.style.padding = '1rem';
+                    projectEl.style.background = 'rgba(255,255,255,0.05)';
+                    projectEl.style.borderRadius = '8px';
+                    projectEl.innerHTML = `
+                        <strong>${project.name}</strong> (${project.type})<br>
+                        <small>Domain: ${project.domain} | Status: ${project.status}</small>
+                    `;
+                    container.appendChild(projectEl);
+                });
+            } catch (error) {
+                console.error('Error loading projects:', error);
+            }
+        }
+
+        // Initialize
+        checkAPI();
+        showView('home');
     </script>
 </body>
 </html>
